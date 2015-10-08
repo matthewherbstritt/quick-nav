@@ -1,0 +1,34 @@
+$test-bg: #fff;
+
+$qn-base-font-size 				: 16;
+
+$mobile-small                 	: 240;
+$mobile-large                 	: 320;
+$tablet-small                 	: 480;
+$tablet-large                 	: 768;
+$screen-small                 	: 1024;
+$screen-large                 	: 1280;
+
+$qn-top-bar-bg 					: #424242;
+$qn-top-bar-horizontal-padding 	: 1em;
+$qn-top-bar-height				: 4em;
+
+
+$qn-nav-link-horizontal-spacing : 32;
+$qn-nav-link-color 				: #F5F5F5;
+$qn-nav-link-hover-color 		: shade($qn-nav-link-color, 20%);
+$qn-nav-link-hover-bg 			: tint($qn-top-bar-bg, 10%);
+$qn-container-max-width 		: 960;
+
+$qn-toggle-nav-btn-color        : #F7F7F7;
+
+$qn-mobile-nav-width 			: 208;
+$qn-mobile-nav-bg 				: #3299BB;
+$qn-mobile-nav-link-color 		: white;
+
+
+$qn-page-overlay-z-index		: 4000;
+
+$qn-desktop-nav-bg 				: $qn-top-bar-bg;
+$qn-desktop-nav-link-color		: white;
+$qn-desktop-nav-link-hover-color: shade($qn-desktop-nav-link-color, 12%);

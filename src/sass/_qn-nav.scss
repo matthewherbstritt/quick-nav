@@ -1,0 +1,155 @@
+.qn-nav {
+	
+}
+
+.qn-nav__list {
+	margin 		: 0;
+	padding 	: 0;
+	list-style 	: none;
+}
+
+.qn-nav__item {
+	
+}
+
+.qn-nav__link {
+	text-decoration: none;
+	display: inline-block;
+}
+
+
+/* ==================================================
+| Desktop Nav Modifiers
+ ==================================================*/
+
+
+.qn-nav--top-bar {
+	
+	@extend .qn-nav;
+	min-height: $qn-top-bar-height;
+}
+
+.qn-nav__list--top-bar {
+	
+	display: none;
+	
+	@include media(em($tablet-small)){
+		display: block;
+		
+	}
+}
+
+.qn-nav__list--top-bar {
+	@extend .qn-nav__list;
+}
+
+.qn-nav__item--top-bar {
+	@extend .qn-nav__item;
+	display: inline;
+	line-height: 4em;
+	
+}
+
+.qn-nav__link--top-bar {
+	
+	@extend .qn-nav__link;
+	
+	color: $qn-desktop-nav-link-color;
+	vertical-align: middle;
+	
+	/* XXX inline to stop link taking full height of top bar */
+	display: inline;
+	
+	@at-root .qn-nav__item--top-bar + .qn-nav__item--top-bar > .qn-nav__link--top-bar {
+		margin-left: 1em;
+	}
+	
+	&:hover {
+		color: $qn-desktop-nav-link-hover-color;
+	}
+	
+}
+
+/* ==================================================
+| Mobile Nav Modifiers
+ ==================================================*/
+
+
+.qn-nav--mobile {
+	
+	@extend .qn-nav;
+	
+	position 	: fixed;
+	top 		: 0;
+	
+	width 		: em($qn-mobile-nav-width, $qn-base-font-size);
+	background 	: $qn-mobile-nav-bg;
+	height 		: 100%;
+	z-index 	: 5000;
+	
+}
+
+.qn-nav--mobile--right {
+	right 		: 0;
+	@include transition (right 0.3s ease-in-out);
+}
+
+.qn-nav--mobile--left {
+	left 		: 0;
+	@include transition (left 0.3s ease-in-out);
+}
+
+.qn-nav--mobile--hidden {
+	
+	&.qn-nav--mobile--right{
+		right: em($qn-mobile-nav-width, $qn-base-font-size) * -1;
+		@include transition (right 0.3s ease-in-out);
+	}
+	
+	&.qn-nav--mobile--left{
+		left: em($qn-mobile-nav-width, $qn-base-font-size) * -1;
+		@include transition (left 0.3s ease-in-out);
+	}
+	
+}
+
+
+.qn-nav__list--mobile {
+	@extend .qn-nav__list;
+}
+
+.qn-nav__item--mobile {
+	@extend .qn-nav__item;
+}
+
+.qn-nav__link--mobile {
+	
+	@extend .qn-nav__link;
+	
+	width 		: 100%;
+	padding 	: 1em;
+	color 		: $qn-mobile-nav-link-color;
+	border-bottom: 1px solid tint($qn-mobile-nav-bg, 24%);
+	
+	
+	&:link{
+        
+    }
+    
+    &:visited{
+        
+    }
+    
+    &:hover{
+        background: tint($qn-mobile-nav-bg, 12%);
+    }
+    
+    &:active{
+       
+    }
+    
+    &:focus {
+         background: tint($qn-mobile-nav-bg, 12%);
+    }
+	
+}

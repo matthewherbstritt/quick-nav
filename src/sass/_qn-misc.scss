@@ -1,0 +1,45 @@
+.qn-container {
+	
+	margin 		: 0 auto;
+	width 		: 100%;
+	max-width 	: em($qn-container-max-width, $qn-base-font-size);
+	
+	// @include clearfix;
+	// ie8 doesn't like bourbon's @include clearfix;
+	&:after {
+
+		content 	: "";
+		display 	: table;
+		clear 		: both;
+
+	}
+	
+}
+
+.qn-page-overlay {
+	
+    position 	: fixed;
+    top 		: 0;
+    right 		: 0;
+    bottom 		: 0;
+    left 		: 0;
+    z-index 	: $qn-page-overlay-z-index;
+    background 	: #000;
+    opacity 	: 0.5;
+	filter 		: alpha(opacity=50);
+	
+}
+
+.qn-page-overlay--hidden {
+	@extend .qn-page-overlay;
+	display 	: none;
+}
+
+.qn-float-right {
+	float: right;
+}
+
+.qn-float-left {
+	float: left;
+}
+		

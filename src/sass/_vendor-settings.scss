@@ -1,0 +1,6 @@
+/*
+| ie 8 doesn't like the double colon syntax
+| used in bourbon neat so we have to override it here
+| and re-write it with single colons in _base.scss
+**/ 
+$border-box-sizing: false;

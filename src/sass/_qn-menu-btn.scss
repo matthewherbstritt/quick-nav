@@ -1,0 +1,65 @@
+.qn-menu-btn{
+	display: inline-block;
+	line-height: 	4em;
+	vertical-align: middle;
+}
+
+.qn-menu-btn__link {
+	
+	position 		: relative;
+	display 		: inline-block;
+	border-top 		: 4px solid $qn-toggle-nav-btn-color;
+	border-bottom 	: 4px solid $qn-toggle-nav-btn-color;
+	width 			: 22px;
+	line-height: 	4em;
+	vertical-align: middle;
+
+	/* needed for ie8 consistency ??? */
+	height 			: 20px;
+
+	/* to hide text */
+	text-indent 	: -9999px;
+
+	// /* override .mnav a padding */
+	// padding 		: 0;
+
+	@include media(em($tablet-small)){
+		display: none;
+	}
+
+	&:after {
+
+		content 	: " ";
+		position 	: absolute;
+		top 		: 4px;
+		left 		: 0;
+		width 		: 100%;
+		border-top 	: 4px solid $qn-toggle-nav-btn-color;
+
+	}
+
+	
+	&:link{
+        
+    }
+    
+    &:visited{
+        
+    }
+    
+    &:hover, &:focus {
+        border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
+		border-bottom-color	: shade($qn-toggle-nav-btn-color, 25%);
+
+		&:after {
+			border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
+		}
+
+    }
+    
+    &:active{
+       
+    }
+    
+  
+}

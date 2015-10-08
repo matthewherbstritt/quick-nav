@@ -1,0 +1,25 @@
+{
+  "name": "quick-nav",
+  "version": "0.1.0",
+  "authors": [
+    "Matthew Herbstritt <matthew.herbstritt@gmail.com>"
+  ],
+  "description": "",
+  "main": [
+    "dist/css/quick-nav.css",
+    "dist/js/quick-nav.js"
+  ],
+  "moduleType": ["globals"],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "~3.0.3"
+  }
+}

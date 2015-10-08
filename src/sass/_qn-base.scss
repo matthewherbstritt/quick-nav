@@ -1,0 +1,47 @@
+body {
+	background: $test-bg;
+}
+
+// * {
+// 	box-sizing: border-box;
+// }
+
+html { // http://bit.ly/1qk2tVR
+    box-sizing: border-box;
+  }
+
+  // ie 8 doesn't like the double colon syntax
+* {
+	
+    &,
+    &:after,
+    &:before {
+      box-sizing: inherit;
+    }
+	
+}
+
+a {
+    
+    &:link{
+        
+    }
+    
+    &:visited{
+        
+    }
+    
+    &:hover{
+        
+    }
+    
+    &:active{
+        
+    }
+    
+    &:focus {
+        background: gray;
+        color: white;
+    }
+    
+}

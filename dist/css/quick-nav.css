@@ -1,0 +1,180 @@
+/*
+| ie 8 doesn't like the double colon syntax
+| used in bourbon neat so we have to override it here
+| and re-write it with single colons in _base.scss
+**/
+body {
+  background: #fff; }
+
+html {
+  box-sizing: border-box; }
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit; }
+
+a:focus {
+  background: gray;
+  color: white; }
+
+.qn-top-bar {
+  background: #424242;
+  padding: 0 1em;
+  min-height: 4em;
+  width: 100%; }
+
+.qn-top-bar__menu-btn {
+  display: inline;
+  vertical-align: middle;
+  line-height: 4em; }
+
+.qn-nav__list, .qn-nav__list--top-bar, .qn-nav__list--mobile {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.qn-nav__link, .qn-nav__link--top-bar, .qn-nav__link--mobile {
+  text-decoration: none;
+  display: inline-block; }
+
+/* ==================================================
+| Desktop Nav Modifiers
+ ==================================================*/
+.qn-nav--top-bar {
+  min-height: 4em; }
+
+.qn-nav__list--top-bar {
+  display: none; }
+  @media screen and (min-width: 30em) {
+    .qn-nav__list--top-bar {
+      display: block; } }
+
+.qn-nav__item--top-bar {
+  display: inline;
+  line-height: 4em; }
+
+.qn-nav__link--top-bar {
+  color: white;
+  vertical-align: middle;
+  /* XXX inline to stop link taking full height of top bar */
+  display: inline; }
+  .qn-nav__item--top-bar + .qn-nav__item--top-bar > .qn-nav__link--top-bar {
+    margin-left: 1em; }
+  .qn-nav__link--top-bar:hover {
+    color: #e0e0e0; }
+
+/* ==================================================
+| Mobile Nav Modifiers
+ ==================================================*/
+.qn-nav--mobile {
+  position: fixed;
+  top: 0;
+  width: 13em;
+  background: #3299BB;
+  height: 100%;
+  z-index: 5000; }
+
+.qn-nav--mobile--right {
+  right: 0;
+  -webkit-transition: right 0.3s ease-in-out;
+  -moz-transition: right 0.3s ease-in-out;
+  transition: right 0.3s ease-in-out; }
+
+.qn-nav--mobile--left {
+  left: 0;
+  -webkit-transition: left 0.3s ease-in-out;
+  -moz-transition: left 0.3s ease-in-out;
+  transition: left 0.3s ease-in-out; }
+
+.qn-nav--mobile--hidden.qn-nav--mobile--right {
+  right: -13em;
+  -webkit-transition: right 0.3s ease-in-out;
+  -moz-transition: right 0.3s ease-in-out;
+  transition: right 0.3s ease-in-out; }
+
+.qn-nav--mobile--hidden.qn-nav--mobile--left {
+  left: -13em;
+  -webkit-transition: left 0.3s ease-in-out;
+  -moz-transition: left 0.3s ease-in-out;
+  transition: left 0.3s ease-in-out; }
+
+.qn-nav__link--mobile {
+  width: 100%;
+  padding: 1em;
+  color: white;
+  border-bottom: 1px solid #63b1cb; }
+  .qn-nav__link--mobile:hover {
+    background: #4ba5c3; }
+  .qn-nav__link--mobile:focus {
+    background: #4ba5c3; }
+
+.qn-logo__link {
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #fff; }
+
+.qn-logo--top-bar {
+  line-height: 4em; }
+
+.qn-menu-btn {
+  display: inline-block;
+  line-height: 4em;
+  vertical-align: middle; }
+
+.qn-menu-btn__link {
+  position: relative;
+  display: inline-block;
+  border-top: 4px solid #F7F7F7;
+  border-bottom: 4px solid #F7F7F7;
+  width: 22px;
+  line-height: 4em;
+  vertical-align: middle;
+  /* needed for ie8 consistency ??? */
+  height: 20px;
+  /* to hide text */
+  text-indent: -9999px; }
+  @media screen and (min-width: 30em) {
+    .qn-menu-btn__link {
+      display: none; } }
+  .qn-menu-btn__link:after {
+    content: " ";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 100%;
+    border-top: 4px solid #F7F7F7; }
+  .qn-menu-btn__link:hover, .qn-menu-btn__link:focus {
+    border-top-color: #b9b9b9;
+    border-bottom-color: #b9b9b9; }
+    .qn-menu-btn__link:hover:after, .qn-menu-btn__link:focus:after {
+      border-top-color: #b9b9b9; }
+
+.qn-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 60em; }
+  .qn-container:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.qn-page-overlay, .qn-page-overlay--hidden {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4000;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+
+.qn-page-overlay--hidden {
+  display: none; }
+
+.qn-float-right {
+  float: right; }
+
+.qn-float-left {
+  float: left; }
