@@ -3,9 +3,6 @@
 | used in bourbon neat so we have to override it here
 | and re-write it with single colons in _base.scss
 **/
-body {
-  background: #fff; }
-
 html {
   box-sizing: border-box; }
 
@@ -39,7 +36,7 @@ a:focus {
   display: inline-block; }
 
 /* ==================================================
-| Desktop Nav Modifiers
+| Top Bar Nav Modifiers
  ==================================================*/
 .qn-nav--top-bar {
   min-height: 4em; }
@@ -104,9 +101,7 @@ a:focus {
   padding: 1em;
   color: white;
   border-bottom: 1px solid #63b1cb; }
-  .qn-nav__link--mobile:hover {
-    background: #4ba5c3; }
-  .qn-nav__link--mobile:focus {
+  .qn-nav__link--mobile:hover, .qn-nav__link--mobile:focus {
     background: #4ba5c3; }
 
 .qn-logo__link {

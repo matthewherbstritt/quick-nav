@@ -33,13 +33,11 @@
 	*/
 
 	function closeNav(event){
-		console.log('closeNav');
 		addClass(mobileNav, CLASS.mobileNavHidden);
 		addClass(overlay, CLASS.overlayHidden);
 	}
 
 	function openNav(event){
-		console.log('openNav')
 		preventDefault(event);
 		toggleClass(mobileNav, CLASS.mobileNavHidden);
 		toggleClass(overlay, CLASS.overlayHidden);
