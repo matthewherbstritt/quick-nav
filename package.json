@@ -11,11 +11,15 @@
   "devDependencies": {
     "browser-sync": "^2.9.8",
     "del": "^2.0.2",
+    "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-nightwatch": "^0.2.6",
+    "gulp-nodemon": "^2.0.4",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
+    "nightwatch": "^0.8.4",
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2"
   },
