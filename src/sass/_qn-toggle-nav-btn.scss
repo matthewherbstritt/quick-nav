@@ -12,9 +12,6 @@
 	/* to hide text */
 	text-indent 	: -9999px;
 
-	// /* override .mnav a padding */
-	// padding 		: 0;
-
 	@include media(em($tablet-small)){
 		display: none;
 	}
@@ -30,7 +27,6 @@
 
 	}
 
-	
 	&:link{
         
     }
@@ -40,11 +36,12 @@
     }
     
     &:hover, &:focus {
+		
         border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
 		border-bottom-color	: shade($qn-toggle-nav-btn-color, 25%);
 
 		&:after {
-			border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
+			border-top-color: shade($qn-toggle-nav-btn-color, 25%);
 		}
 
     }

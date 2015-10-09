@@ -1,16 +1,8 @@
-body {
-	background: $test-bg;
+html {
+    box-sizing: border-box;
 }
 
-// * {
-// 	box-sizing: border-box;
-// }
-
-html { // http://bit.ly/1qk2tVR
-    box-sizing: border-box;
-  }
-
-  // ie 8 doesn't like the double colon syntax
+// ie 8 doesn't like the double colon syntax
 * {
 	
     &,
