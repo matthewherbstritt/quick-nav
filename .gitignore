@@ -1,0 +1,7 @@
+.vscode
+
+selenium-debug.log
+
+bower_components
+node_modules
+reports
