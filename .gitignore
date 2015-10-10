@@ -1,6 +1,7 @@
 .vscode
 
 selenium-debug.log
+npm-debug.log
 
 bower_components
 node_modules
