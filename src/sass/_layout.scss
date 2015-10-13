@@ -1,0 +1,4 @@
+.content {
+	@include outer-container(em($content-max-width));
+	padding: 0 1em;
+}

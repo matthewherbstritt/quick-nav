@@ -1,0 +1,52 @@
+html {
+  box-sizing: border-box; }
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit; }
+
+/*
+* clearfix for ie 8 support
+**/
+body {
+  background: #FDFDFD; }
+
+* {
+  color: "#fff"; }
+
+.content {
+  max-width: 60em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1em; }
+  .content :after {
+    clear: both;
+    content: "";
+    display: table; }
+
+.demo-nav {
+  border-radius: 4px;
+  background: #2F6B79;
+  text-align: center;
+  width: 100%; }
+
+.demo-nav__list {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+.demo-nav__item {
+  display: inline-block;
+  vertical-align: middle; }
+
+.demo-nav__link {
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 1em;
+  padding: 1em;
+  color: #efefef; }
+  .demo-nav__link:focus,
+  .demo-nav__link:hover {
+    color: white; }
