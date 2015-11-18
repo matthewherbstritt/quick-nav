@@ -1,0 +1,9 @@
+mixin qn-off-canvas(direction, modifier, id, overlay)
+
+	- direction = (direction) ? 'qn-off-canvas--' + direction : 'qn-off-canvas--left'
+	- slide = (modifier === 'push') ? 'qn-off-canvas--push' : 'qn-off-canvas--slide'
+	- classNames = 'qn-off-canvas qn-off-canvas--hidden ' + direction + ' ' + slide
+	- dataId = id ? id : undefined
+
+	nav(class=classNames data-qn-nav=dataId data-qn-overlay=overlay)
+		block

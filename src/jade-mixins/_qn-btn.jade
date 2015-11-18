@@ -1,0 +1,5 @@
+mixin qn-btn(id, direction)
+	- d = direction ? direction : 'right'
+	- classNames = 'qn-menu-btn qn-menu-btn--' + d
+	div(class=classNames)
+		a(href="javascript:void(0)" class="qn-menu-btn__link" aria-expanded="true" data-qn-btn=id) Menu         

@@ -3,6 +3,19 @@
 | used in bourbon neat so we have to override it here
 | and re-write it with single colons in _base.scss
 **/
+.qn--left, .qn-navbar__logo--left, .qn-nav--left, .qn-menu-btn--left {
+  float: left; }
+
+.qn--right, .qn-navbar__logo--right, .qn-nav--right, .qn-menu-btn--right {
+  float: right; }
+
+.qn-nav {
+  display: block;
+  position: absolute;
+  max-height: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden; }
+
 html {
   box-sizing: border-box; }
 
@@ -11,125 +24,197 @@ html {
 *:before {
   box-sizing: inherit; }
 
-a:focus {
-  background: gray;
-  color: white; }
+pre {
+  word-wrap: break-word; }
 
-.qn-top-bar {
+.qn-navbar {
   background: #424242;
-  padding: 0 1em;
-  min-height: 4em;
+  min-height: 3em;
   width: 100%; }
 
-.qn-top-bar__menu-btn {
-  display: inline;
-  vertical-align: middle;
-  line-height: 4em; }
-
-.qn-nav__list, .qn-nav__list--top-bar, .qn-nav__list--mobile {
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-
-.qn-nav__link, .qn-nav__link--top-bar, .qn-nav__link--mobile {
-  text-decoration: none;
-  display: inline-block; }
-
-/* ==================================================
-| Top Bar Nav Modifiers
- ==================================================*/
-.qn-nav--top-bar {
-  min-height: 4em; }
-
-.qn-nav__list--top-bar {
-  display: none; }
-  @media screen and (min-width: 30em) {
-    .qn-nav__list--top-bar {
-      display: block; } }
-
-.qn-nav__item--top-bar {
-  display: inline;
-  line-height: 4em; }
-
-.qn-nav__link--top-bar {
-  color: white;
-  vertical-align: middle;
-  /* XXX inline to stop link taking full height of top bar */
-  display: inline; }
-  .qn-nav__item--top-bar + .qn-nav__item--top-bar > .qn-nav__link--top-bar {
-    margin-left: 1em; }
-  .qn-nav__link--top-bar:hover {
-    color: #e0e0e0; }
-
-/* ==================================================
-| Mobile Nav Modifiers
- ==================================================*/
-.qn-nav--mobile {
+.qn-navbar--fixed {
   position: fixed;
   top: 0;
-  width: 13em;
-  background: #3299BB;
-  height: 100%;
-  z-index: 5000; }
-
-.qn-nav--mobile--right {
-  right: 0;
-  -webkit-transition: right 0.3s ease-in-out;
-  -moz-transition: right 0.3s ease-in-out;
-  transition: right 0.3s ease-in-out; }
-
-.qn-nav--mobile--left {
   left: 0;
-  -webkit-transition: left 0.3s ease-in-out;
-  -moz-transition: left 0.3s ease-in-out;
-  transition: left 0.3s ease-in-out; }
+  z-index: 6000; }
 
-.qn-nav--mobile--hidden.qn-nav--mobile--right {
-  right: -13em;
-  -webkit-transition: right 0.3s ease-in-out;
-  -moz-transition: right 0.3s ease-in-out;
-  transition: right 0.3s ease-in-out; }
+.qn-navbar--rounded {
+  border-radius: 4px; }
+  .qn-navbar--rounded .qn-nav {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px; }
 
-.qn-nav--mobile--hidden.qn-nav--mobile--left {
-  left: -13em;
-  -webkit-transition: left 0.3s ease-in-out;
-  -moz-transition: left 0.3s ease-in-out;
-  transition: left 0.3s ease-in-out; }
+.qn-navbar--primary {
+  background: #442244; }
 
-.qn-nav__link--mobile {
-  width: 100%;
-  padding: 1em;
-  color: white;
-  border-bottom: 1px solid #63b1cb; }
-  .qn-nav__link--mobile:hover, .qn-nav__link--mobile:focus {
-    background: #4ba5c3; }
+.qn-navbar--primary .qn-nav {
+  border-top: 1px solid #735973;
+  background: #573857; }
+  @media screen and (min-width: 48em) {
+    .qn-navbar--primary .qn-nav {
+      border-top: 0;
+      background: transparent; } }
 
-.qn-logo__link {
+.qn-navbar--primary .qn-nav__link:hover, .qn-navbar--primary .qn-nav__link:focus {
+  background: #694e69; }
+  @media screen and (min-width: 48em) {
+    .qn-navbar--primary .qn-nav__link:hover, .qn-navbar--primary .qn-nav__link:focus {
+      background: transparent;
+      color: #a291a2; } }
+
+.qn-navbar--primary .qn-menu-btn__link:hover, .qn-navbar--primary .qn-menu-btn__link:focus {
+  border-top-color: #b4a7b4;
+  border-bottom-color: #b4a7b4; }
+  .qn-navbar--primary .qn-menu-btn__link:hover:after, .qn-navbar--primary .qn-menu-btn__link:focus:after {
+    border-top-color: #b4a7b4; }
+
+.qn-navbar--secondary {
+  background: #3299bb; }
+
+.qn-navbar--secondary .qn-nav {
+  border-top: 1px solid #65b3cc;
+  background: #47a3c2; }
+  @media screen and (min-width: 48em) {
+    .qn-navbar--secondary .qn-nav {
+      border-top: 0;
+      background: transparent; } }
+
+.qn-navbar--secondary .qn-nav__link:hover, .qn-navbar--secondary .qn-nav__link:focus {
+  background: #5badc9; }
+  @media screen and (min-width: 48em) {
+    .qn-navbar--secondary .qn-nav__link:hover, .qn-navbar--secondary .qn-nav__link:focus {
+      background: transparent;
+      color: #99ccdd; } }
+
+.qn-navbar--secondary .qn-menu-btn__link:hover, .qn-navbar--secondary .qn-menu-btn__link:focus {
+  border-top-color: #add6e4;
+  border-bottom-color: #add6e4; }
+  .qn-navbar--secondary .qn-menu-btn__link:hover:after, .qn-navbar--secondary .qn-menu-btn__link:focus:after {
+    border-top-color: #add6e4; }
+
+.qn-navbar__logo {
   text-decoration: none;
-  font-size: 1.2em;
-  color: #fff; }
+  font-size: 1.25em;
+  color: #fff;
+  line-height: 2.4em;
+  padding: 0 0.8em; }
 
-.qn-logo--top-bar {
-  line-height: 4em; }
+/* ==================================================
+| Base Nav Classes
+ ==================================================*/
+.qn-nav {
+  width: 100%;
+  padding: 0;
+  margin: 0; }
+  @media screen and (min-width: 48em) {
+    .qn-nav {
+      max-height: inherit;
+      position: relative;
+      width: auto;
+      border-top: 0;
+      background: transparent;
+      display: block;
+      padding: 0 1em; } }
+
+.qn-nav__item {
+  text-align: center;
+  list-style: none;
+  display: block;
+  line-height: 3em; }
+  @media screen and (min-width: 48em) {
+    .qn-nav__item {
+      display: inline-block; }
+      .qn-nav__item + .qn-nav__item {
+        padding-left: 1em;
+        color: green; } }
+
+.qn-nav__link {
+  padding-left: 1em;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
+  line-height: 3em; }
+  .qn-nav__link:hover {
+    background: #4b4b4b; }
+  @media screen and (min-width: 48em) {
+    .qn-nav__link {
+      border-top: 0; }
+      .qn-nav__link:hover, .qn-nav__link:focus {
+        background: transparent; } }
+
+/* ==================================================
+| Nav Modifier Classes
+ ==================================================*/
+.qn-nav--collapse {
+  transition: max-height 0.3s; }
+  @media screen and (min-width: 48em) {
+    .qn-nav--collapse {
+      max-height: inherit;
+      position: relative; } }
+
+.qn-nav--off-canvas {
+  max-height: inherit;
+  position: relative; }
+  @media screen and (min-width: 48em) {
+    .qn-nav--off-canvas {
+      padding: 0;
+      display: block; } }
+  .qn-nav--off-canvas > .qn-nav__item {
+    /*
+		* Overwrite base rules to keep off canvas links stacked vertically if 
+		* screen is resized to be wider than the breakpoint
+		*/ }
+    @media screen and (min-width: 48em) {
+      .qn-nav--off-canvas > .qn-nav__item {
+        display: block; }
+        .qn-nav--off-canvas > .qn-nav__item + .qn-nav__item {
+          padding-left: 0; } }
+  .qn-nav--off-canvas .qn-nav__link:hover {
+    background: #64d026; }
+  @media screen and (min-width: 48em) {
+    .qn-nav--off-canvas .qn-nav__link {
+      display: block;
+      width: 100%; } }
+
+/**
+* TODO: calculate and create max-height style via JavaScript
+*/
+.qn-nav--open {
+  max-height: 289px !important; }
+
+.qn-nav--left .qn-nav__link {
+  text-align: left;
+  padding-left: 1em; }
+
+.qn-nav--right .qn-nav__link {
+  text-align: right;
+  padding-right: 1em; }
+
+.qn-nav--centered .qn-nav__link {
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em; }
 
 .qn-menu-btn {
   display: inline-block;
-  line-height: 4em;
+  line-height: 3em;
   vertical-align: middle; }
 
 .qn-menu-btn__link {
-  position: relative;
   display: inline-block;
+  position: relative;
   border-top: 4px solid #F7F7F7;
   border-bottom: 4px solid #F7F7F7;
   width: 22px;
-  line-height: 4em;
   vertical-align: middle;
   /* needed for ie8 consistency ??? */
   height: 20px;
   /* to hide text */
-  text-indent: -9999px; }
-  @media screen and (min-width: 30em) {
+  text-indent: -9999px;
+  /* needed to provent FF focus indicator being too large */
+  overflow: hidden; }
+  @media screen and (min-width: 48em) {
     .qn-menu-btn__link {
       display: none; } }
   .qn-menu-btn__link:after {
@@ -145,6 +230,12 @@ a:focus {
     .qn-menu-btn__link:hover:after, .qn-menu-btn__link:focus:after {
       border-top-color: #b9b9b9; }
 
+.qn-menu-btn--left {
+  padding-left: 1em; }
+
+.qn-menu-btn--right {
+  padding-right: 1em; }
+
 .qn-container {
   margin: 0 auto;
   width: 100%;
@@ -154,7 +245,10 @@ a:focus {
     display: table;
     clear: both; }
 
-.qn-page-overlay, .qn-page-overlay--hidden {
+.qn-section, .qn-header {
+  padding: 0 1em; }
+
+.qn-page-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -163,7 +257,8 @@ a:focus {
   z-index: 4000;
   background: #000;
   opacity: 0.5;
-  filter: alpha(opacity=50); }
+  filter: alpha(opacity=50);
+  transition: opacity 300ms ease-in-out; }
 
 .qn-page-overlay--hidden {
   display: none; }
@@ -173,3 +268,77 @@ a:focus {
 
 .qn-float-left {
   float: left; }
+
+.qn-off-canvas {
+  height: 100%;
+  width: 13em;
+  position: fixed;
+  top: 0;
+  z-index: 5000;
+  background: #56cc13;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.qn-off-canvas--hidden {
+  -webkit-transform: translate3d(-13em, 0, 0);
+  -moz-transform: translate3d(-13em, 0, 0);
+  -ms-transform: translate3d(-13em, 0, 0);
+  -o-transform: translate3d(-13em, 0, 0);
+  transform: translate3d(-13em, 0, 0); }
+
+.qn-off-canvas__header {
+  background: #6fd436; }
+
+.qn-off-canvas__header--border {
+  border-bottom: 1px solid #fff; }
+
+.qn-off-canvas__logo {
+  text-decoration: none;
+  font-size: 1.25em;
+  color: #fff;
+  line-height: 2.4em;
+  padding: 0 0.8em;
+  background: #49ad10;
+  display: block; }
+  .qn-off-canvas__logo:hover {
+    background: #5ecf1f; }
+
+.qn-push-content {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.qn-pushed {
+  -webkit-transform: translate3d(13em, 0, 0);
+  -moz-transform: translate3d(13em, 0, 0);
+  -ms-transform: translate3d(13em, 0, 0);
+  -o-transform: translate3d(13em, 0, 0);
+  transform: translate3d(13em, 0, 0); }
+
+.qn-pushed, .qn-push-content, .qn-off-canvas {
+  -webkit-transition: transform 300ms cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  -moz-transition: transform 300ms cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  -ms-transition: transform 300ms cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  -o-transition: transform 300ms cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  transition: transform 300ms cubic-bezier(0.16, 0.68, 0.43, 0.99); }
+
+.qn-no-animate .qn-off-canvas {
+  left: 0; }
+
+.qn-no-animate .qn-off-canvas--hidden {
+  left: -13em; }
+
+.qn-no-animate .qn-push-content {
+  position: relative;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%; }
+
+.qn-no-animate .qn-pushed {
+  left: 13em; }

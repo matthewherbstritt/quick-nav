@@ -1,29 +1,30 @@
-.qn-menu-btn{
-	display: inline-block;
-	line-height: 	4em;
-	vertical-align: middle;
+.qn-menu-btn {
+	
+	display 		: inline-block;
+	line-height 	: em($qn-nav-bar-height, $qn-base-font-size);
+	vertical-align 	: middle;
+	
 }
 
 .qn-menu-btn__link {
 	
-	position 		: relative;
 	display 		: inline-block;
-	border-top 		: 4px solid $qn-toggle-nav-btn-color;
-	border-bottom 	: 4px solid $qn-toggle-nav-btn-color;
+	position 		: relative;
+	border-top 		: 4px solid $qn-menu-btn-color;
+	border-bottom 	: 4px solid $qn-menu-btn-color;
 	width 			: 22px;
-	line-height: 	4em;
-	vertical-align: middle;
+	vertical-align  : middle;
 
 	/* needed for ie8 consistency ??? */
 	height 			: 20px;
 
 	/* to hide text */
 	text-indent 	: -9999px;
+	
+	/* needed to provent FF focus indicator being too large */
+	overflow: hidden;
 
-	// /* override .mnav a padding */
-	// padding 		: 0;
-
-	@include media(em($tablet-small)){
+	@include media(em($qn-break-point, $qn-base-font-size)){
 		display: none;
 	}
 
@@ -34,32 +35,43 @@
 		top 		: 4px;
 		left 		: 0;
 		width 		: 100%;
-		border-top 	: 4px solid $qn-toggle-nav-btn-color;
+		border-top 	: 4px solid $qn-menu-btn-color;
 
 	}
 
 	
-	&:link{
+	// &:link{
         
-    }
+    // }
     
-    &:visited{
+    // &:visited{
         
-    }
+    // }
     
     &:hover, &:focus {
-        border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
-		border-bottom-color	: shade($qn-toggle-nav-btn-color, 25%);
+		
+        border-top-color 	: shade($qn-menu-btn-color, 25%);
+		border-bottom-color	: shade($qn-menu-btn-color, 25%);
 
 		&:after {
-			border-top-color 	: shade($qn-toggle-nav-btn-color, 25%);
+			border-top-color 	: shade($qn-menu-btn-color, 25%);
 		}
 
     }
     
-    &:active{
+    // &:active{
        
-    }
+    // }
     
   
+}
+
+.qn-menu-btn--left {
+	@extend .qn--left;
+	padding-left 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+}
+
+.qn-menu-btn--right {
+	@extend .qn--right;
+	padding-right 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
 }

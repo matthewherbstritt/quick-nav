@@ -32,8 +32,11 @@ a {
     }
     
     &:focus {
-        background: gray;
-        color: white;
+     
     }
     
+}
+
+pre {
+    word-wrap:break-word;
 }

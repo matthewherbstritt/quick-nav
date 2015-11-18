@@ -5,15 +5,19 @@ var $           = require('gulp-load-plugins')(),
     
     port        = process.env.PORT || 3000,
     
+    nodeServer  = './src/dev-server.js',
     sassFiles   = './src/sass/**/*.scss',
     jsFiles     = './src/js/**/*.js',
+    jadeFiles   = './src/**/*.jade',
     demosDir    = './demos/',
     distDir     = './dist/';
 
-/* ==================================================
+/*
+|--------------------------------------------------
 | Helper Functions
- ==================================================*/
- 
+|--------------------------------------------------
+*/
+
 function clean(paths, done) {
     del(paths)
       .then(function(){
@@ -44,20 +48,18 @@ function startBrowserSync(){
         reloadDelay     : 750,
         
         files: [
-            demosDir + '**/*.*',
+            jadeFiles,
             distDir + '**/*.*'
         ]
         
     };
           
-    gulp
-        .watch([sassFiles], ['sass'])
+    gulp.watch([sassFiles], ['sass'])
         .on('change', function(){
             console.log('sass files changed');
         });
         
-    gulp
-        .watch([jsFiles], ['js'])
+    gulp.watch([jsFiles], ['js'])
         .on('change', function(){
             console.log('js files changed');
         });
@@ -66,9 +68,11 @@ function startBrowserSync(){
  
 }
 
-/* ==================================================
+/*
+|--------------------------------------------------
 | Tasks
- ==================================================*/
+|--------------------------------------------------
+*/
 
 gulp.task('int-tests', function() {
     
@@ -86,7 +90,7 @@ gulp.task('clean-js', function(done){
 
 gulp.task('js', ['clean-js'], function(){
     gulp.src('src/js/quick-nav.js')
-        .pipe(gulp.dest('dist/js/'))
+        .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('clean-css', function(done){
@@ -109,29 +113,31 @@ gulp.task('serve-dev', ['sass', 'js'], function(){
     
     var options = {
         
-            script: './server.js',
-            delayTime: 1,
+            script: nodeServer,
+            delayTime: 1000,
             
             env: {
                 'PORT': 5000,
                 'NODE_ENV': 'development' 
             },
             
-            watch: ['./server.js']
+            // watch: [nodeServer]
             
         };
-        
-    function reloadBrowserSync(){
-        setTimeout(function(){
-            browserSync.reload({stream: false}) ;
-        }, 500)
-    }
     
     return $.nodemon(options)
         .on('restart', reloadBrowserSync)
         .on('start', startBrowserSync)
         .on('crash', function(){ console.log('*** nodemon CRASH ***'); })
-        .on('exit', function(){ console.log('*** nodemon EXIT ***'); });
+        .on('exit', function(arg){console.log('EXIST ARG', arg); console.log('*** nodemon EXIT ***'); });
+        
+    //////////////////////////////////////////////////
+    
+    function reloadBrowserSync(){
+        setTimeout(function(){
+            browserSync.reload({stream: false}) ;
+        }, 500)
+    }
 
 });
 

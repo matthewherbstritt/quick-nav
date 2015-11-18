@@ -1,149 +1,177 @@
+/* ==================================================
+| Base Nav Classes
+ ==================================================*/
+
 .qn-nav {
 	
-}
+	@extend %hidden;
 
-.qn-nav__list {
-	margin 		: 0;
+	width       : 100%;
 	padding 	: 0;
-	list-style 	: none;
+	margin 		: 0;
+	
+	@include media(em($qn-break-point, $qn-base-font-size)){
+		
+		max-height 	: inherit;
+		position 	: relative;	
+
+		width 		: auto;
+		border-top 	: 0;
+		background  : transparent;
+		display 	: block;
+		padding 	: 0 em($qn-navbar-hrz-padding, $qn-base-font-size);
+		
+	}
+	
 }
 
 .qn-nav__item {
 	
+	text-align      : center;
+	list-style 		: none;
+	display 		: block;
+	line-height 	: em($qn-nav-bar-height, $qn-base-font-size);
+	
+	
+	@include media(em($qn-break-point, $qn-base-font-size)){
+		
+		display: inline-block;
+		
+		& + &  {
+			padding-left: 1em;
+			color: green;
+		}
+		
+	}
+	
 }
 
 .qn-nav__link {
-	text-decoration 	: none;
-	display 			: inline-block;
-}
-
-
-/* ==================================================
-| Top Bar Nav Modifiers
- ==================================================*/
-
-.qn-nav--top-bar {
 	
-	@extend .qn-nav;
-	min-height: $qn-top-bar-height;
-}
-
-.qn-nav__list--top-bar {
-	
-	display: none;
-	
-	@include media(em($tablet-small)){
-		display: block;
-		
-	}
-}
-
-.qn-nav__list--top-bar {
-	@extend .qn-nav__list;
-}
-
-.qn-nav__item--top-bar {
-	
-	@extend .qn-nav__item;
-	
-	display 	: inline;
-	line-height : 4em;
-	
-}
-
-.qn-nav__link--top-bar {
-	
-	@extend .qn-nav__link;
-	
-	color 			: $qn-desktop-nav-link-color;
-	vertical-align 	: middle;
-	
-	/* XXX inline to stop link taking full height of top bar */
-	display 		: inline;
-	
-	@at-root .qn-nav__item--top-bar + .qn-nav__item--top-bar > .qn-nav__link--top-bar {
-		margin-left: 1em;
-	}
+	padding-left 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+	display 		: inline-block;
+	width 			: 100%;
+	text-decoration : none;
+	color 			: #fff;
+	line-height 	: em($qn-nav-bar-height, $qn-base-font-size);
 	
 	&:hover {
-		color: $qn-desktop-nav-link-hover-color;
+		background: tint($qn-nav-bar-bg, 5%);
+	}
+	
+	@include media(em($qn-break-point, $qn-base-font-size)){
+		
+		border-top :0;
+		
+		&:hover, &:focus {
+			background: transparent;
+		}
+		
 	}
 	
 }
 
 /* ==================================================
-| Mobile Nav Modifiers
+| Nav Modifier Classes
  ==================================================*/
 
-.qn-nav--mobile {
+.qn-nav--collapse {
 	
-	@extend .qn-nav;
+	transition 		: max-height 0.3s;
 	
-	position 	: fixed;
-	top 		: 0;
-	
-	width 		: em($qn-mobile-nav-width, $qn-base-font-size);
-	background 	: $qn-mobile-nav-bg;
-	height 		: 100%;
-	z-index 	: 5000;
-	
-}
+	@include media(em($qn-break-point, $qn-base-font-size)){
+		
+		max-height 	: inherit;
+		position 	: relative;
 
-.qn-nav--mobile--right {
-	right: 0;
-	@include transition (right 0.3s ease-in-out);
-}
-
-.qn-nav--mobile--left {
-	left: 0;
-	@include transition (left 0.3s ease-in-out);
-}
-
-.qn-nav--mobile--hidden {
-	
-	&.qn-nav--mobile--right{
-		right: em($qn-mobile-nav-width, $qn-base-font-size) * -1;
-		@include transition (right 0.3s ease-in-out);
-	}
-	
-	&.qn-nav--mobile--left{
-		left: em($qn-mobile-nav-width, $qn-base-font-size) * -1;
-		@include transition (left 0.3s ease-in-out);
 	}
 	
 }
 
-.qn-nav__list--mobile {
-	@extend .qn-nav__list;
+.qn-nav--off-canvas {
+	
+	max-height 	: inherit;
+	position 	: relative;
+	
+	@include media(em($qn-break-point, $qn-base-font-size)){
+		padding: 0;
+		display: block;
+	}
+	
+	& > .qn-nav__item {
+		
+		/*
+		* Overwrite base rules to keep off canvas links stacked vertically if 
+		* screen is resized to be wider than the breakpoint
+		*/
+		@include media(em($qn-break-point, $qn-base-font-size)){
+			
+			display: block;
+			
+			& + .qn-nav__item {
+				padding-left: 0;
+			}
+			
+		}
+		
+	}
+	
+	& .qn-nav__link {
+		
+		&:hover {
+			background: tint($qn-off-canvas-bg , 8%);
+		}
+		
+		@include media(em($qn-break-point, $qn-base-font-size)){
+			display: block;
+			width: 100%;
+		}
+	
+	}
+	
 }
 
-.qn-nav__item--mobile {
-	@extend .qn-nav__item;
+/**
+* TODO: calculate and create max-height style via JavaScript
+*/
+.qn-nav--open {
+	max-height: 289px !important;
 }
 
-.qn-nav__link--mobile {
+.qn-nav--left {
 	
-	@extend .qn-nav__link;
+	@extend .qn--left;
 	
-	width 			: 100%;
-	padding 		: 1em;
-	color 			: $qn-mobile-nav-link-color;
-	border-bottom 	: 1px solid tint($qn-mobile-nav-bg, 24%);
+	& .qn-nav__link {
+		
+		text-align 		: left;
+		padding-left 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+		
+	}
 	
-	&:link{
-        
-    }
-    
-    &:visited{
-        
-    }
-    
-    &:hover, &:focus {
-        background: tint($qn-mobile-nav-bg, 12%);
-    }
-    
-    &:active{
-       
-    }
+}
+
+.qn-nav--right {	
+	
+	@extend .qn--right;
+	
+	& .qn-nav__link {
+		
+		text-align 		: right;
+		padding-right 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+		
+	}
+
+}
+
+.qn-nav--centered {
+	
+	& .qn-nav__link {
+
+		text-align 		: center;
+		padding-left 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+		padding-right 	: em($qn-navbar-hrz-padding, $qn-base-font-size);
+		
+	}
 	
 }

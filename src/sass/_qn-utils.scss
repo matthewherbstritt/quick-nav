@@ -1,0 +1,57 @@
+.qn--left {
+	float: left;
+}
+
+.qn--right {
+	float: right;
+}
+
+%hidden {
+	
+	display 		: block;
+	position 		: absolute;
+	max-height 		: 0;
+	clip 			: rect(0 0 0 0);
+    overflow 		: hidden;
+	
+}
+
+@mixin navbar-bg($baseColor){
+	
+	& {
+		background: $baseColor;
+	}
+	
+	& .qn-nav {
+		border-top: 1px solid tint($baseColor, 25%);
+		background: tint($baseColor, 10%);
+		
+		@include media(em($qn-break-point, $qn-base-font-size)){
+			border-top: 0;
+			background: transparent;
+		}
+	}
+					
+	& .qn-nav__link:hover, & .qn-nav__link:focus {
+		
+		background: tint($baseColor, 20%);
+		
+		@include media(em($qn-break-point, $qn-base-font-size)){
+			background: transparent;
+			color: tint($baseColor, 50%);
+		}
+		
+	}
+	
+	& .qn-menu-btn__link:hover, & .qn-menu-btn__link:focus {
+		
+		border-top-color 	: tint($baseColor, 60%);
+		border-bottom-color	: tint($baseColor, 60%);
+
+		&:after {
+			border-top-color 	: tint($baseColor, 60%);
+		}
+
+	}
+	
+}
