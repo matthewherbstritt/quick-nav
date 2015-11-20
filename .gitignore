@@ -1,7 +1,9 @@
+.idea
 .vscode
 selenium-debug.log
 
 bin
+dist
 
 bower_components
 node_modules
