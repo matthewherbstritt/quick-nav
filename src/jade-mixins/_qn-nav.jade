@@ -1,0 +1,9 @@
+mixin qn-nav(items, modifiers, id)
+	- classNames = 'qn-nav '+ modifiers.join(' ')
+	- dataId = id ? id : undefined
+	ul(class=classNames  data-qn-nav=dataId)
+		each item in items
+			- url = item.url ? item.url : 'javascript:void(0)'
+			li.qn-nav__item
+				a(href=url class='qn-nav__link') 
+					=item.name

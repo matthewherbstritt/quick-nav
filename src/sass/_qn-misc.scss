@@ -3,7 +3,7 @@
 	margin 		: 0 auto;
 	width 		: 100%;
 	max-width 	: em($qn-container-max-width, $qn-base-font-size);
-	
+	// padding 	: 0 $qn-container-padding;
 	// @include clearfix;
 	// ie8 doesn't like bourbon's @include clearfix;
 	&:after {
@@ -16,8 +16,13 @@
 	
 }
 
+.qn-section, .qn-header {
+	padding: 0 1em;
+}
+
+
 .qn-page-overlay {
-	
+
     position 	: fixed;
     top 		: 0;
     right 		: 0;
@@ -27,13 +32,15 @@
     background 	: #000;
     opacity 	: 0.5;
 	filter 		: alpha(opacity=50);
-	
+	transition: opacity $qn-transition-speed ease-in-out;
 }
 
 .qn-page-overlay--hidden {
-	@extend .qn-page-overlay;
-	display 	: none;
+	display: none;
+	//opacity: 0;
+	//transition: opacity .25s ease-in-out;
 }
+
 
 .qn-float-right {
 	float: right;
@@ -43,3 +50,6 @@
 	float: left;
 }
 		
+		
+
+

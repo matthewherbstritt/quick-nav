@@ -1,0 +1,16 @@
+extend ../layouts/shell
+
+block content
+
+	nav(class='qn-navbar qn-navbar--primary')
+	
+		.qn-container 
+		
+			+qn-btn(1)
+			
+			a(href="javascript:void(0)" class="qn-navbar__logo qn-navbar__logo--left") Quick Nav
+				
+			+qn-nav(dummyLinks, ['qn-nav--right qn-nav--collapse'], 1)
+			
+	include ../partials/page-heading.jade
+	include ../partials/secondary-navbar.jade

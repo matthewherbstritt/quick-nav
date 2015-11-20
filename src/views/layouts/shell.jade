@@ -1,0 +1,25 @@
+include ../../jade-mixins/quick-nav.jade
+doctype
+
+html
+
+    head
+        <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+        
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        
+        title #{title} - My Site
+        
+        link(rel='stylesheet', href='/normalize-css/normalize.css')
+        link(rel='stylesheet', href='/css/quick-nav.css')
+
+    body
+
+        block content
+        
+        script(src='/js/quick-nav.js')
+ 

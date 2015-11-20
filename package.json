@@ -19,6 +19,7 @@
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
+    "jade": "^1.11.0",
     "nightwatch": "^0.8.4",
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2"

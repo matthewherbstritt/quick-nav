@@ -1,0 +1,25 @@
+extend ../layouts/shell
+
+block content
+
+	+qn-off-canvas('left', 'push', 1, true)
+		header(class='qn-off-canvas__header qn-off-canvas__header--border')
+			a(href="javascript:void(0)" class="qn-off-canvas__logo") Quick Nav
+		+qn-nav(dummyLinks, ['qn-nav qn-nav--off-canvas qn-nav--left'])
+
+	.qn-page-overlay.qn-page-overlay--hidden(id='js-qn-overlay')
+
+	.qn-push-content(id='js-qn-push-content')
+
+		nav(class='qn-navbar qn-navbar--primary')
+
+			.qn-container
+
+				+qn-btn(1)
+
+				a(href="javascript:void(0)" class="qn-navbar__logo qn-navbar__logo--left") Quick Nav
+
+				+qn-nav(dummyLinks, ['qn-nav--right'])
+
+		include ../partials/page-heading.jade
+		include ../partials/secondary-navbar.jade

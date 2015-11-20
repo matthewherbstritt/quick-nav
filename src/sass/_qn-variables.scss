@@ -1,3 +1,5 @@
+$qn-prefixes                    : webkit moz ms o spec;
+
 $qn-base-font-size 				: 16;
 
 $mobile-small                 	: 240;
@@ -7,26 +9,40 @@ $tablet-large                 	: 768;
 $screen-small                 	: 1024;
 $screen-large                 	: 1280;
 
-$qn-top-bar-bg 					: #424242;
-$qn-top-bar-horizontal-padding 	: 1em;
-$qn-top-bar-height				: 4em;
+$qn-bg-primary 		            : #442244;
+$qn-bg-secondary 	            : #3299bb;
+
+$qn-break-point 				: 768;
+
+$qn-container-padding           : 1em;
+
+$qn-nav-bar-bg 					: #424242;
+$qn-nav-bar-horizontal-padding 	: 1em;
+$qn-nav-bar-height				: 48;
+
+$qn-nav-bar-logo-font-size 		: 20;
+$qn-navbar-hrz-padding			: 16;
 
 
 $qn-nav-link-horizontal-spacing : 32;
 $qn-nav-link-color 				: #F5F5F5;
 $qn-nav-link-hover-color 		: shade($qn-nav-link-color, 20%);
-$qn-nav-link-hover-bg 			: tint($qn-top-bar-bg, 10%);
+$qn-nav-link-hover-bg 			: tint($qn-nav-bar-bg, 10%);
 $qn-container-max-width 		: 960;
 
-$qn-toggle-nav-btn-color        : #F7F7F7;
+$qn-menu-btn-color        		: #F7F7F7;
 
-$qn-mobile-nav-width 			: 208;
-$qn-mobile-nav-bg 				: #3299BB;
-$qn-mobile-nav-link-color 		: white;
-
+$qn-off-canvas-nav-width 		: 208;
+$qn-off-canvas-z-index 			: 5000;
+$qn-off-canvas-bg 				: #56cc13;
+$qn-off-canvas-link-color 		: white;
+$qn-transition-speed 			: 300ms;
 
 $qn-page-overlay-z-index		: 4000;
 
-$qn-desktop-nav-bg 				: $qn-top-bar-bg;
+$qn-desktop-nav-bg 				: $qn-nav-bar-bg;
 $qn-desktop-nav-link-color		: white;
 $qn-desktop-nav-link-hover-color: shade($qn-desktop-nav-link-color, 12%);
+
+$qn-nav-secondary-brk-point 	: 768;
+
