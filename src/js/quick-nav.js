@@ -233,12 +233,9 @@
 
     function getElementByDataAttr(dataAttr, value){
 
-        if(!dataAttr) throw new Error('[quick-nav] invalid data attribute')
-
         var valueStr    = (value) ? '="' + value + '"]' : ']',
             query       = '[' + dataAttr + valueStr,
             nodeList    = document.querySelectorAll(query)
-
 
         return toArray(nodeList)
     }
@@ -259,14 +256,14 @@
                 }
             })
 
-            if(!targetNav) throw new Error('[quick-nav] Target nav is undefined')
+            if(!targetNav) throwNavUndefined()
 
             return targetNav
         }
 
-        if(!elements || !elements.length) throw new Error('[quick-nav] Target nav is undefined')
+        if(!elements || !elements.length) throwNavUndefined()
 
-        if(elements.length > 1) throw new Error('[quick-nav] Multiple navs found. Cannot link button to more than one nav.')
+        if(elements.length > 1) throwMultipleNavs()
 
         return elements[0]
     }
@@ -426,10 +423,6 @@
 
     }
 
-    function throwBindError(target, eventName){
-        throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
-    }
-
     function toArray(nodeList){
 
         try {
@@ -459,5 +452,23 @@
 
         (hasClass(element, className) ? removeClass : addClass)(element, className)
     }
+
+	/*
+	|--------------------------------------------------
+	| Errors
+	|--------------------------------------------------
+	*/
+
+	function throwBindError(target, eventName){
+		throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
+	}
+
+	function throwNavUndefined(){
+		throw new Error(errorPrefix + 'Target nav is undefined')
+	}
+
+	function throwMultipleNavs(){
+		throw new Error(errorPrefix + 'Multiple navs found. Cannot link button to more than one nav.')
+	}
 
 })(window)
