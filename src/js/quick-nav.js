@@ -1,467 +1,463 @@
 (function(window){
 
-	'use strict'
-
-	/*
-	|--------------------------------------------------
-	| Polyfill - forEach
-	|--------------------------------------------------
-	*/
-
-	// Production steps of ECMA-262, Edition 5, 15.4.4.18
-	// Reference: http://es5.github.io/#x15.4.4.18
-	if (!Array.prototype.forEach) {
-
-		Array.prototype.forEach = function(callback, thisArg) {
-
-			var T, k;
-
-			if (this == null) {
-				throw new TypeError(' this is null or not defined');
-			}
-
-			// 1. Let O be the result of calling ToObject passing the |this| value as the argument.
-			var O = Object(this);
-
-			// 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
-			// 3. Let len be ToUint32(lenValue).
-			var len = O.length >>> 0;
-
-			// 4. If IsCallable(callback) is false, throw a TypeError exception.
-			// See: http://es5.github.com/#x9.11
-			if (typeof callback !== "function") {
-				throw new TypeError(callback + ' is not a function');
-			}
-
-			// 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
-			if (arguments.length > 1) {
-				T = thisArg;
-			}
-
-			// 6. Let k be 0
-			k = 0;
-
-			// 7. Repeat, while k < len
-			while (k < len) {
-
-				var kValue;
-
-				// a. Let Pk be ToString(k).
-				//   This is implicit for LHS operands of the in operator
-				// b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
-				//   This step can be combined with c
-				// c. If kPresent is true, then
-				if (k in O) {
-
-					// i. Let kValue be the result of calling the Get internal method of O with argument Pk.
-					kValue = O[k];
-
-					// ii. Call the Call internal method of callback with T as the this value and
-					// argument list containing kValue, k, and O.
-					callback.call(T, kValue, k, O);
-				}
-				// d. Increase k by 1.
-				k++;
-			}
-			// 8. return undefined
-		};
-	}
-
-	/*
-	|--------------------------------------------------
-	| Polyfill - getComputedStyle
-	|--------------------------------------------------
-	*/
-
-	var computed = !!window.getComputedStyle;
-	
-	if(!computed){
-	
-		window.getComputedStyle = function(el){
-			
-			this.el = el;
-			this.getPropertyValue = function(prop){
-				
-				var re = /(\-([a-z]){1})/g;
-				
-				if(prop === 'float'){
-					prop = 'styleFloat';
-				}
-				
-				if(re.test(prop)){
-					prop = prop.replace(re, function(){
-						return arguments[2].toUpperCase();
-					});
-				}
-				
-				return el.currentStyle[prop] ? el.currentStyle[prop] : null;
-			
-			};
-			
-			return this;
-			
-		};
-	
-	}
-
-	/*
-	|--------------------------------------------------
-	| Quick Nav Code
-	|--------------------------------------------------
-	*/
-
-	var qnBtns, qnNavs, overlay, pushContent,
-
-		docRoot 	= document.documentElement,
-		errorPrefix = '[quick-nav]: ',
-
-		CLASS = {
-
-			contentPushed 		: 'qn-pushed',
-			offCanvasHidden 	: 'qn-off-canvas--hidden',
-			overlay 			: 'qn-page-overlay',
-			overlayHidden  		: 'qn-page-overlay--hidden',
-			navCollapse 		: 'qn-nav--collapse',
-			navOffCanvasSlide 	: 'qn-off-canvas--slide',
-			navOffCanvasPush 	: 'qn-off-canvas--push',
-			navOpen 			: 'qn-nav--open',
-			noAnimate 			: 'qn-no-animate'
-			
-		},
+    'use strict'
 
-		ATTR = {
-			
-			qnBtn 		: 'data-qn-btn',
-			qnNav 		: 'data-qn-nav',
-			qnOverlay	: 'data-qn-overlay'
-			
-		},
+    /*
+    |--------------------------------------------------
+    | Polyfill - forEach
+    |--------------------------------------------------
+    */
 
-		ID = {
-			overlay 	: 'js-qn-overlay',
-			pushContent	: 'js-qn-push-content'
-		},
+    // Production steps of ECMA-262, Edition 5, 15.4.4.18
+    // Reference: http://es5.github.io/#x15.4.4.18
+    if (!Array.prototype.forEach) {
 
-		classListSupport 	= ('classList' in document.documentElement)
+        Array.prototype.forEach = function(callback, thisArg) {
 
-	init()
+            var T, k;
 
-	/*
-	|--------------------------------------------------------------------------
-	| Event Handlers
-	|--------------------------------------------------------------------------
-	*/
-	
-	function toggleNav(event){
-		
-		var targetNav 	= getTargetNav(event, ATTR.qnBtn, ATTR.qnNav),
-			collapseNav = hasClass(targetNav, CLASS.navCollapse),
-			slideNav 	= hasClass(targetNav, CLASS.navOffCanvasSlide),
-			pushNav 	= hasClass(targetNav, CLASS.navOffCanvasPush)
+            if (this == null) {
+                throw new TypeError(' this is null or not defined');
+            }
 
-		if(collapseNav){
-			return toggleCollapse(targetNav)
-		}
+            // 1. Let O be the result of calling ToObject passing the |this| value as the argument.
+            var O = Object(this);
 
-		if(slideNav || pushNav){
-			return toggleOffCanvas(targetNav)
-		}
+            // 2. Let lenValue be the result of calling the Get internal method of O with the argument "length".
+            // 3. Let len be ToUint32(lenValue).
+            var len = O.length >>> 0;
 
-	}
-	
-	function onResize(){
+            // 4. If IsCallable(callback) is false, throw a TypeError exception.
+            // See: http://es5.github.com/#x9.11
+            if (typeof callback !== "function") {
+                throw new TypeError(callback + ' is not a function');
+            }
 
-		var collapseNavs 	= getNavByClass(CLASS.navCollapse),
-			offCanvasNavs 	= [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
-			mobileView 		= isMobileView()
+            // 5. If thisArg was supplied, let T be thisArg; else let T be undefined.
+            if (arguments.length > 1) {
+                T = thisArg;
+            }
 
-		if(offCanvasNavs){
-			offCanvasNavs.forEach(function(nav){
-				addClass(nav, CLASS.offCanvasHidden)
-			})
-		}
+            // 6. Let k be 0
+            k = 0;
 
-		if(overlay){
-			addClass(overlay, CLASS.overlayHidden)
-		}
+            // 7. Repeat, while k < len
+            while (k < len) {
 
-		if(collapseNavs){
+                var kValue;
 
-			collapseNavs.forEach(function(nav){
+                // a. Let Pk be ToString(k).
+                //   This is implicit for LHS operands of the in operator
+                // b. Let kPresent be the result of calling the HasProperty internal method of O with argument Pk.
+                //   This step can be combined with c
+                // c. If kPresent is true, then
+                if (k in O) {
 
-				if(mobileView){
-					nav.style.position = 'relative'
-				}
+                    // i. Let kValue be the result of calling the Get internal method of O with argument Pk.
+                    kValue = O[k];
 
-			})
+                    // ii. Call the Call internal method of callback with T as the this value and
+                    // argument list containing kValue, k, and O.
+                    callback.call(T, kValue, k, O);
+                }
+                // d. Increase k by 1.
+                k++;
+            }
+            // 8. return undefined
+        };
+    }
 
-		}
+    /*
+    |--------------------------------------------------
+    | Polyfill - getComputedStyle
+    |--------------------------------------------------
+    */
 
-	}
+    var computed = !!window.getComputedStyle;
 
-	/*
-	|--------------------------------------------------------------------------
-	| Helper Functions
-	|--------------------------------------------------------------------------
-	*/
+    if(!computed){
 
-	function bind(target, eventName, callback){
+        window.getComputedStyle = function(el){
 
-		if(isArray(target)){
-			return target.forEach(function(item){
-				bindEvent(item, eventName, callback)
-			})
-		}
+            this.el = el;
+            this.getPropertyValue = function(prop){
 
-		return bindEvent(target, eventName, callback)
+                var re = /(\-([a-z]){1})/g;
 
-		throwBindError(target, eventName)
+                if(prop === 'float'){
+                    prop = 'styleFloat';
+                }
 
-	}
+                if(re.test(prop)){
+                    prop = prop.replace(re, function(){
+                        return arguments[2].toUpperCase();
+                    });
+                }
 
-	function bindEvent(element, eventName, callback){
+                return el.currentStyle[prop] ? el.currentStyle[prop] : null;
 
-		if(!canBind(element)) throwBindError(element, eventName)
+            };
 
-		var postIE8 = (element.addEventListener)
+            return this;
 
-		if(postIE8){
-			return element.addEventListener(eventName, callback, false)
-		}
+        };
 
-		return element.attachEvent('on' + eventName, callback)
-	}
+    }
 
-	function getElementByDataAttr(dataAttr, value){
+    /*
+    |--------------------------------------------------
+    | Quick Nav Code
+    |--------------------------------------------------
+    */
 
-		if(!dataAttr) throw new Error('[quick-nav] invalid data attribute')
+    var qnBtns, qnNavs, overlay, pushContent,
 
-		var valueStr 	= (value) ? '="' + value + '"]' : ']',
-			query 		= '[' + dataAttr + valueStr,
-			nodeList 	= document.querySelectorAll(query)
+        docRoot     = document.documentElement,
+        errorPrefix = '[quick-nav]: ',
 
+        CLASS = {
 
-		return toArray(nodeList)
-	}
+            contentPushed       : 'qn-pushed',
+            offCanvasHidden     : 'qn-off-canvas--hidden',
+            overlay             : 'qn-page-overlay',
+            overlayHidden       : 'qn-page-overlay--hidden',
+            navCollapse         : 'qn-nav--collapse',
+            navOffCanvasSlide   : 'qn-off-canvas--slide',
+            navOffCanvasPush    : 'qn-off-canvas--push',
+            navOpen             : 'qn-nav--open',
+            noAnimate           : 'qn-no-animate'
 
-	function getTargetNav(event, btnAttr, navAttr){
+        },
 
-		var targetNav 		= undefined,
-			clickedElement 	= event.target || event.srcElement,
-			overlay 		= hasClass(clickedElement, CLASS.overlay),
-			btnId 	   		= clickedElement.getAttribute(btnAttr),
-			elements 		= btnId ? getElementByDataAttr(navAttr, btnId) : false
+        ATTR = {
 
-		if(overlay){
+            qnBtn       : 'data-qn-btn',
+            qnNav       : 'data-qn-nav',
+            qnOverlay   : 'data-qn-overlay'
 
-			qnNavs.forEach(function(nav){
-				if(nav.getAttribute(ATTR.qnOverlay)){
-					targetNav = nav
-				}
-			})
+        },
 
-			if(!targetNav) throw new Error('[quick-nav] Target nav is undefined')
+        ID = {
 
-			return targetNav
-		}
+            overlay     : 'js-qn-overlay',
+            pushContent : 'js-qn-push-content'
 
-		if(!elements || !elements.length) throw new Error('[quick-nav] Target nav is undefined')
+        },
 
-		if(elements.length > 1) throw new Error('[quick-nav] Multiple navs found. Cannot link button to more than one nav.')
+        classListSupport = ('classList' in document.documentElement)
 
-		return elements[0]
-	}
+    init()
 
-	function toggleCollapse(targetNav){
+    /*
+    |--------------------------------------------------------------------------
+    | Event Handlers
+    |--------------------------------------------------------------------------
+    */
 
-		if(hasClass(targetNav, CLASS.navOpen)){
+    function toggleNav(event){
 
-			removeClass(targetNav, CLASS.navOpen)
+        var targetNav 	= getTargetNav(event, ATTR.qnBtn, ATTR.qnNav),
+            collapseNav = hasClass(targetNav, CLASS.navCollapse),
+            slideNav 	= hasClass(targetNav, CLASS.navOffCanvasSlide),
+            pushNav 	= hasClass(targetNav, CLASS.navOffCanvasPush)
 
-			if(browserSupportsCssTransition()){
+        if(collapseNav){
+            return toggleCollapse(targetNav)
+        }
 
-				setTimeout(function(){
-					targetNav.style.position = 'absolute'
-				}, 310)
+        if(slideNav || pushNav){
+            return toggleOffCanvas(targetNav)
+        }
 
-			} else {
-				targetNav.style.position = 'absolute'
-			}
+    }
 
-		} else {
-			addClass(targetNav, CLASS.navOpen)
-			targetNav.style.position = 'relative'
-		}
+    function onResize(){
 
-	}
+        var collapseNavs    = getNavByClass(CLASS.navCollapse),
+            offCanvasNavs   = [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
+            mobileView      = isMobileView()
 
-	function toggleOffCanvas(targetNav){
+        if(offCanvasNavs){
+            offCanvasNavs.forEach(function(nav){
+                addClass(nav, CLASS.offCanvasHidden)
+            })
+        }
 
-		var withOverlay = targetNav.getAttribute(ATTR.qnOverlay)
+        if(overlay){
+            addClass(overlay, CLASS.overlayHidden)
+        }
 
-		if(overlay && withOverlay){
-			toggleClass(overlay, CLASS.overlayHidden)
-		}
+        if(collapseNavs){
 
-		if(pushContent){
-			toggleClass(pushContent, CLASS.contentPushed)
-		}
+            collapseNavs.forEach(function(nav){
 
-		toggleClass(targetNav, CLASS.offCanvasHidden)
-	}
+                if(mobileView){
+                    nav.style.position = 'relative'
+                }
 
-	function init(){
+            })
 
-		if(!canUseCssProp('transition') || !canUseCssProp('transform')){
-			addClass(docRoot, CLASS.noAnimate)
-		}
+        }
 
-		qnBtns 		= getElementByDataAttr(ATTR.qnBtn)
-		qnNavs 		= getElementByDataAttr(ATTR.qnNav)
-		overlay 	= document.getElementById(ID.overlay)
-		pushContent = document.getElementById(ID.pushContent)
+    }
 
-		if(overlay){
-			bind(overlay, 'click', toggleNav)
-		}
+    /*
+    |--------------------------------------------------------------------------
+    | Helper Functions
+    |--------------------------------------------------------------------------
+    */
 
-		if(qnBtns.length){
-			bind(qnBtns, 'click', toggleNav)
-			bind(window, 'resize', onResize)
-		}
+    function bind(target, eventName, callback){
 
-	}
+        if(isArray(target)){
+            return target.forEach(function(item){
+                bindEvent(item, eventName, callback)
+            })
+        }
 
-	function getNavByClass(className){
+        return bindEvent(target, eventName, callback)
+    }
 
-		var matched = []
+    function bindEvent(element, eventName, callback){
 
-		qnNavs.forEach(function(nav){
-			if(isElement(nav) && hasClass(nav, className)){
-				matched.push(nav)
-			}
-		})
+        if(!canBind(element)) throwBindError(element, eventName)
 
-		return matched
-	}
+        var postIE8 = (element.addEventListener)
 
-	/*
-	|--------------------------------------------------
-	| Utility Functions
-	|--------------------------------------------------
-	*/
+        if(postIE8){
+            return element.addEventListener(eventName, callback, false)
+        }
 
-	function addClass(element, className){
+        return element.attachEvent('on' + eventName, callback)
+    }
 
-		if(!element) return false
+    function getElementByDataAttr(dataAttr, value){
 
-		if(classListSupport){
-			return element.classList.add(className)
-		}
+        if(!dataAttr) throw new Error('[quick-nav] invalid data attribute')
 
-		if(!hasClass(element, className)){
-			element.className += (element.className ? ' ' : '') + className
-		}
+        var valueStr    = (value) ? '="' + value + '"]' : ']',
+            query       = '[' + dataAttr + valueStr,
+            nodeList    = document.querySelectorAll(query)
 
-	}
 
-	function browserSupportsCssTransition(){
-		return (document.createElement('div').style['transition'] !== undefined)
-	}
+        return toArray(nodeList)
+    }
 
-	function btnIsVisible(btn){
-		return (window.getComputedStyle(btn, null).getPropertyValue('display') !== 'none')
-	}
+    function getTargetNav(event, btnAttr, navAttr){
 
-	function canUseCssProp(prop){
-		return (document.createElement('div').style[prop] !== undefined)
-	}
+        var targetNav       = undefined,
+            clickedElement  = event.target || event.srcElement,
+            overlay         = hasClass(clickedElement, CLASS.overlay),
+            btnId           = clickedElement.getAttribute(btnAttr),
+            elements        = btnId ? getElementByDataAttr(navAttr, btnId) : false
 
-	function canBind(obj){
-		return (obj && (obj.addEventListener || obj.attachEvent))
-	}
+        if(overlay){
 
-	function hasClass(element, className){
+            qnNavs.forEach(function(nav){
+                if(nav.getAttribute(ATTR.qnOverlay)){
+                    targetNav = nav
+                }
+            })
 
-		if(!element) return false
+            if(!targetNav) throw new Error('[quick-nav] Target nav is undefined')
 
-		if(classListSupport){
-			return element.classList.contains(className)
-		}
+            return targetNav
+        }
 
-		return new RegExp('(^|\\s)' + className + '(\\s|$)').test(element.className)
-	}
+        if(!elements || !elements.length) throw new Error('[quick-nav] Target nav is undefined')
 
-	function isArray(arg){
-		return Object.prototype.toString.call(arg) === '[object Array]'
-	}
+        if(elements.length > 1) throw new Error('[quick-nav] Multiple navs found. Cannot link button to more than one nav.')
 
-	function isElement(obj){
-		return(obj instanceof Element)
-	}
+        return elements[0]
+    }
 
-	function isMobileView(){
-		if(!qnBtns || qnBtns.length === 0) return false
+    function toggleCollapse(targetNav){
 
-		return btnIsVisible(qnBtns[0])
-	}
+        if(hasClass(targetNav, CLASS.navOpen)){
 
-	function preventDefault(event){
+            removeClass(targetNav, CLASS.navOpen)
 
-		if (event.preventDefault){
-			return event.preventDefault()
-		}
+            if(browserSupportsCssTransition()){
 
-		event.returnValue = false
-	}
+                setTimeout(function(){
+                    targetNav.style.position = 'absolute'
+                }, 310)
 
-	function removeClass(element, className){
+            } else {
+                targetNav.style.position = 'absolute'
+            }
 
-		if(!element) return false
+        } else {
+            addClass(targetNav, CLASS.navOpen)
+            targetNav.style.position = 'relative'
+        }
 
-		if(classListSupport){
-			return element.classList.remove(className)
-		}
+    }
 
-		if(hasClass(element, className)){
-			element.className = element.className.replace(new RegExp('(^|\\s)*' + className + '(\\s|$)*', 'g'), ' ')
-		}
+    function toggleOffCanvas(targetNav){
 
-	}
+        var withOverlay = targetNav.getAttribute(ATTR.qnOverlay)
 
-	function throwBindError(target, eventName){
-		throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
-	}
+        if(overlay && withOverlay){
+            toggleClass(overlay, CLASS.overlayHidden)
+        }
 
-	function toArray(nodeList){
+        if(pushContent){
+            toggleClass(pushContent, CLASS.contentPushed)
+        }
 
-		try {
+        toggleClass(targetNav, CLASS.offCanvasHidden)
+    }
 
-			return Array.prototype.slice.call(nodeList)
+    function init(){
 
-		} catch(error){
+        if(!canUseCssProp('transition') || !canUseCssProp('transform')){
+            addClass(docRoot, CLASS.noAnimate)
+        }
 
-			var i, arr = []
+        qnBtns      = getElementByDataAttr(ATTR.qnBtn)
+        qnNavs      = getElementByDataAttr(ATTR.qnNav)
+        overlay     = document.getElementById(ID.overlay)
+        pushContent = document.getElementById(ID.pushContent)
 
-			for (i = 0; i < nodeList.length; i++){
-				arr.push(nodeList[i]);
-			}
+        if(overlay){
+            bind(overlay, 'click', toggleNav)
+        }
 
-			return arr
-		}
+        if(qnBtns.length){
+            bind(qnBtns, 'click', toggleNav)
+            bind(window, 'resize', onResize)
+        }
 
-	}
+    }
 
-	function toggleClass(element, className){
+    function getNavByClass(className){
 
-		if(!element) return false
+        var matched = []
 
-		if(classListSupport){
-			return element.classList.toggle(className)
-		}
+        qnNavs.forEach(function(nav){
+            if(isElement(nav) && hasClass(nav, className)){
+                matched.push(nav)
+            }
+        })
 
-		(hasClass(element, className) ? removeClass : addClass)(element, className)
+        return matched
+    }
 
-	}
+    /*
+    |--------------------------------------------------
+    | Utility Functions
+    |--------------------------------------------------
+    */
+
+    function addClass(element, className){
+
+        if(!element) return false
+
+        if(classListSupport){
+            return element.classList.add(className)
+        }
+
+        if(!hasClass(element, className)){
+            element.className += (element.className ? ' ' : '') + className
+        }
+
+    }
+
+    function browserSupportsCssTransition(){
+        return (document.createElement('div').style['transition'] !== undefined)
+    }
+
+    function btnIsVisible(btn){
+        return (window.getComputedStyle(btn, null).getPropertyValue('display') !== 'none')
+    }
+
+    function canUseCssProp(prop){
+        return (document.createElement('div').style[prop] !== undefined)
+    }
+
+    function canBind(obj){
+        return (obj && (obj.addEventListener || obj.attachEvent))
+    }
+
+    function hasClass(element, className){
+
+        if(!element) return false
+
+        if(classListSupport){
+            return element.classList.contains(className)
+        }
+
+        return new RegExp('(^|\\s)' + className + '(\\s|$)').test(element.className)
+    }
+
+    function isArray(arg){
+        return Object.prototype.toString.call(arg) === '[object Array]'
+    }
+
+    function isElement(obj){
+        return(obj instanceof Element)
+    }
+
+    function isMobileView(){
+        return (!qnBtns || qnBtns.length === 0) ? false : btnIsVisible(qnBtns[0])
+    }
+
+    function preventDefault(event){
+
+        if (event.preventDefault){
+            return event.preventDefault()
+        }
+
+        event.returnValue = false
+    }
+
+    function removeClass(element, className){
+
+        if(!element) return false
+
+        if(classListSupport){
+            return element.classList.remove(className)
+        }
+
+        if(hasClass(element, className)){
+            element.className = element.className.replace(new RegExp('(^|\\s)*' + className + '(\\s|$)*', 'g'), ' ')
+        }
+
+    }
+
+    function throwBindError(target, eventName){
+        throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
+    }
+
+    function toArray(nodeList){
+
+        try {
+
+            return Array.prototype.slice.call(nodeList)
+
+        } catch(error) {
+
+            var i, arr = []
+
+            for (i = 0; i < nodeList.length; i++){
+                arr.push(nodeList[i]);
+            }
+
+            return arr
+        }
+
+    }
+
+    function toggleClass(element, className){
+
+        if(!element) return false
+
+        if(classListSupport){
+            return element.classList.toggle(className)
+        }
+
+        (hasClass(element, className) ? removeClass : addClass)(element, className)
+    }
 
 })(window)
