@@ -154,6 +154,36 @@
     |--------------------------------------------------------------------------
     */
 
+	function onResize(){
+
+		var collapseNavs    = getNavByClass(CLASS.navCollapse),
+			offCanvasNavs   = [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
+			mobileView      = isMobileView()
+
+		if(offCanvasNavs){
+			offCanvasNavs.forEach(function(nav){
+				addClass(nav, CLASS.offCanvasHidden)
+			})
+		}
+
+		if(overlay){
+			addClass(overlay, CLASS.overlayHidden)
+		}
+
+		if(collapseNavs){
+
+			collapseNavs.forEach(function(nav){
+
+				if(mobileView){
+					nav.style.position = 'relative'
+				}
+
+			})
+
+		}
+
+	}
+
     function toggleNav(event){
 
         var targetNav 	= getTargetNav(event, ATTR.qnBtn, ATTR.qnNav),
@@ -167,36 +197,6 @@
 
         if(slideNav || pushNav){
             return toggleOffCanvas(targetNav)
-        }
-
-    }
-
-    function onResize(){
-
-        var collapseNavs    = getNavByClass(CLASS.navCollapse),
-            offCanvasNavs   = [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
-            mobileView      = isMobileView()
-
-        if(offCanvasNavs){
-            offCanvasNavs.forEach(function(nav){
-                addClass(nav, CLASS.offCanvasHidden)
-            })
-        }
-
-        if(overlay){
-            addClass(overlay, CLASS.overlayHidden)
-        }
-
-        if(collapseNavs){
-
-            collapseNavs.forEach(function(nav){
-
-                if(mobileView){
-                    nav.style.position = 'relative'
-                }
-
-            })
-
         }
 
     }
@@ -240,33 +240,68 @@
         return toArray(nodeList)
     }
 
-    function getTargetNav(event, btnAttr, navAttr){
+	function getNavByClass(className){
 
-        var targetNav       = undefined,
-            clickedElement  = event.target || event.srcElement,
-            overlay         = hasClass(clickedElement, CLASS.overlay),
-            btnId           = clickedElement.getAttribute(btnAttr),
-            elements        = btnId ? getElementByDataAttr(navAttr, btnId) : false
+		var matched = []
 
-        if(overlay){
+		qnNavs.forEach(function(nav){
+			if(isElement(nav) && hasClass(nav, className)){
+				matched.push(nav)
+			}
+		})
 
-            qnNavs.forEach(function(nav){
-                if(nav.getAttribute(ATTR.qnOverlay)){
-                    targetNav = nav
-                }
-            })
+		return matched
+	}
 
-            if(!targetNav) throwNavUndefined()
+	function getTargetNav(event, btnAttr, navAttr){
 
-            return targetNav
-        }
+		var targetNav       = undefined,
+			clickedElement  = event.target || event.srcElement,
+			overlay         = hasClass(clickedElement, CLASS.overlay),
+			btnId           = clickedElement.getAttribute(btnAttr),
+			elements        = btnId ? getElementByDataAttr(navAttr, btnId) : false
 
-        if(!elements || !elements.length) throwNavUndefined()
+		if(overlay){
 
-        if(elements.length > 1) throwMultipleNavs()
+			qnNavs.forEach(function(nav){
+				if(nav.getAttribute(ATTR.qnOverlay)){
+					targetNav = nav
+				}
+			})
 
-        return elements[0]
-    }
+			if(!targetNav) throwNavUndefined()
+
+			return targetNav
+		}
+
+		if(!elements || !elements.length) throwNavUndefined()
+
+		if(elements.length > 1) throwMultipleNavs()
+
+		return elements[0]
+	}
+
+	function init(){
+
+		if(!canUseCssProp('transition') || !canUseCssProp('transform')){
+			addClass(docRoot, CLASS.noAnimate)
+		}
+
+		qnBtns      = getElementByDataAttr(ATTR.qnBtn)
+		qnNavs      = getElementByDataAttr(ATTR.qnNav)
+		overlay     = document.getElementById(ID.overlay)
+		pushContent = document.getElementById(ID.pushContent)
+
+		if(overlay){
+			bind(overlay, 'click', toggleNav)
+		}
+
+		if(qnBtns.length){
+			bind(qnBtns, 'click', toggleNav)
+			bind(window, 'resize', onResize)
+		}
+
+	}
 
     function toggleCollapse(targetNav){
 
@@ -304,41 +339,6 @@
         }
 
         toggleClass(targetNav, CLASS.offCanvasHidden)
-    }
-
-    function init(){
-
-        if(!canUseCssProp('transition') || !canUseCssProp('transform')){
-            addClass(docRoot, CLASS.noAnimate)
-        }
-
-        qnBtns      = getElementByDataAttr(ATTR.qnBtn)
-        qnNavs      = getElementByDataAttr(ATTR.qnNav)
-        overlay     = document.getElementById(ID.overlay)
-        pushContent = document.getElementById(ID.pushContent)
-
-        if(overlay){
-            bind(overlay, 'click', toggleNav)
-        }
-
-        if(qnBtns.length){
-            bind(qnBtns, 'click', toggleNav)
-            bind(window, 'resize', onResize)
-        }
-
-    }
-
-    function getNavByClass(className){
-
-        var matched = []
-
-        qnNavs.forEach(function(nav){
-            if(isElement(nav) && hasClass(nav, className)){
-                matched.push(nav)
-            }
-        })
-
-        return matched
     }
 
     /*
