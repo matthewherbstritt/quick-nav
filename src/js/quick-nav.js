@@ -154,35 +154,35 @@
     |--------------------------------------------------------------------------
     */
 
-	function onResize(){
+    function onResize(){
 
-		var collapseNavs    = getNavByClass(CLASS.navCollapse),
-			offCanvasNavs   = [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
-			mobileView      = isMobileView()
+        var collapseNavs    = getNavByClass(CLASS.navCollapse),
+            offCanvasNavs   = [].concat(getNavByClass(CLASS.navOffCanvasPush), getNavByClass(CLASS.navOffCanvasSlide)),
+            mobileView      = isMobileView()
 
-		if(offCanvasNavs){
-			offCanvasNavs.forEach(function(nav){
-				addClass(nav, CLASS.offCanvasHidden)
-			})
-		}
+        if(offCanvasNavs){
+            offCanvasNavs.forEach(function(nav){
+                addClass(nav, CLASS.offCanvasHidden)
+            })
+        }
 
-		if(overlay){
-			addClass(overlay, CLASS.overlayHidden)
-		}
+        if(overlay){
+            addClass(overlay, CLASS.overlayHidden)
+        }
 
-		if(collapseNavs){
+        if(collapseNavs){
 
-			collapseNavs.forEach(function(nav){
+            collapseNavs.forEach(function(nav){
 
-				if(mobileView){
-					nav.style.position = 'relative'
-				}
+                if(mobileView){
+                    nav.style.position = 'relative'
+                }
 
-			})
+            })
 
-		}
+        }
 
-	}
+    }
 
     function toggleNav(event){
 
@@ -240,68 +240,68 @@
         return toArray(nodeList)
     }
 
-	function getNavByClass(className){
+    function getNavByClass(className){
 
-		var matched = []
+        var matched = []
 
-		qnNavs.forEach(function(nav){
-			if(isElement(nav) && hasClass(nav, className)){
-				matched.push(nav)
-			}
-		})
+        qnNavs.forEach(function(nav){
+            if(isElement(nav) && hasClass(nav, className)){
+                matched.push(nav)
+            }
+        })
 
-		return matched
-	}
+        return matched
+    }
 
-	function getTargetNav(event, btnAttr, navAttr){
+    function getTargetNav(event, btnAttr, navAttr){
 
-		var targetNav       = undefined,
-			clickedElement  = event.target || event.srcElement,
-			overlay         = hasClass(clickedElement, CLASS.overlay),
-			btnId           = clickedElement.getAttribute(btnAttr),
-			elements        = btnId ? getElementByDataAttr(navAttr, btnId) : false
+        var targetNav       = undefined,
+            clickedElement  = event.target || event.srcElement,
+            overlay         = hasClass(clickedElement, CLASS.overlay),
+            btnId           = clickedElement.getAttribute(btnAttr),
+            elements        = btnId ? getElementByDataAttr(navAttr, btnId) : false
 
-		if(overlay){
+        if(overlay){
 
-			qnNavs.forEach(function(nav){
-				if(nav.getAttribute(ATTR.qnOverlay)){
-					targetNav = nav
-				}
-			})
+            qnNavs.forEach(function(nav){
+                if(nav.getAttribute(ATTR.qnOverlay)){
+                    targetNav = nav
+                }
+            })
 
-			if(!targetNav) throwNavUndefined()
+            if(!targetNav) throwNavUndefined()
 
-			return targetNav
-		}
+            return targetNav
+        }
 
-		if(!elements || !elements.length) throwNavUndefined()
+        if(!elements || !elements.length) throwNavUndefined()
 
-		if(elements.length > 1) throwMultipleNavs()
+        if(elements.length > 1) throwMultipleNavs()
 
-		return elements[0]
-	}
+        return elements[0]
+    }
 
-	function init(){
+    function init(){
 
-		if(!canUseCssProp('transition') || !canUseCssProp('transform')){
-			addClass(docRoot, CLASS.noAnimate)
-		}
+        if(!canUseCssProp('transition') || !canUseCssProp('transform')){
+            addClass(docRoot, CLASS.noAnimate)
+        }
 
-		qnBtns      = getElementByDataAttr(ATTR.qnBtn)
-		qnNavs      = getElementByDataAttr(ATTR.qnNav)
-		overlay     = document.getElementById(ID.overlay)
-		pushContent = document.getElementById(ID.pushContent)
+        qnBtns      = getElementByDataAttr(ATTR.qnBtn)
+        qnNavs      = getElementByDataAttr(ATTR.qnNav)
+        overlay     = document.getElementById(ID.overlay)
+        pushContent = document.getElementById(ID.pushContent)
 
-		if(overlay){
-			bind(overlay, 'click', toggleNav)
-		}
+        if(overlay){
+            bind(overlay, 'click', toggleNav)
+        }
 
-		if(qnBtns.length){
-			bind(qnBtns, 'click', toggleNav)
-			bind(window, 'resize', onResize)
-		}
+        if(qnBtns.length){
+            bind(qnBtns, 'click', toggleNav)
+            bind(window, 'resize', onResize)
+        }
 
-	}
+    }
 
     function toggleCollapse(targetNav){
 
@@ -453,22 +453,22 @@
         (hasClass(element, className) ? removeClass : addClass)(element, className)
     }
 
-	/*
-	|--------------------------------------------------
-	| Errors
-	|--------------------------------------------------
-	*/
+    /*
+    |--------------------------------------------------
+    | Errors
+    |--------------------------------------------------
+    */
 
-	function throwBindError(target, eventName){
-		throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
-	}
+    function throwBindError(target, eventName){
+        throw new Error(errorPrefix + 'Cannot bind event "' + eventName + '" to: ' + target)
+    }
 
-	function throwNavUndefined(){
-		throw new Error(errorPrefix + 'Target nav is undefined')
-	}
+    function throwNavUndefined(){
+        throw new Error(errorPrefix + 'Target nav is undefined')
+    }
 
-	function throwMultipleNavs(){
-		throw new Error(errorPrefix + 'Multiple navs found. Cannot link button to more than one nav.')
-	}
+    function throwMultipleNavs(){
+        throw new Error(errorPrefix + 'Multiple navs found. Cannot link button to more than one nav.')
+    }
 
 })(window)
